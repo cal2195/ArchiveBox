@@ -8,7 +8,7 @@
 # Documentation:
 #     https://github.com/pirate/ArchiveBox/wiki/Docker#docker
 
-FROM ubuntu:latest
+FROM node:13-buster
 LABEL maintainer="Nick Sweeting <archivebox-git@sweeting.me>"
 
 ENV DEBIAN_FRONTEND noninteractive 
