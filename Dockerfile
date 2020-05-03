@@ -13,7 +13,7 @@ LABEL maintainer="Nick Sweeting <archivebox-git@sweeting.me>"
 
 RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
-        jq git zlib1g-dev wget curl youtube-dl gnupg2 libgconf-2-4 python3 python3-pip \
+        jq git zlib1g-dev wget curl gnupg2 libgconf-2-4 python3 python3-pip \
     && rm -rf /var/lib/apt/lists/*
 
 # Install latest chrome package and fonts to support major charsets (Chinese, Japanese, Arabic, Hebrew, Thai and a few others)
@@ -45,14 +45,14 @@ RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
 
 WORKDIR /home/pptruser/app
 
-RUN python3 -m pip install --upgrade pip setuptools && python3 -m pip install virtualenv \
+RUN python3 -m pip install --upgrade pip setuptools youtube-dl && python3 -m pip install virtualenv \
     && python3 -m virtualenv ".docker-venv"
 ENV PATH="/home/pttruser/app/.docker-venv/bin:${PATH}"
 COPY ./Pipfile.lock "/home/pttruser/app/Pipfile.lock"
 RUN jq -r \
         '.default,.develop | to_entries[] | .key + .value.version' \
         "/home/pttruser/app/Pipfile.lock" \
-    | /home/pttruser/app/.docker-venv/bin/python -m pip install --no-cache-dir -r /dev/stdin \
+    | /home/pttruser/app/.docker-venv/bin/python3 -m pip install --no-cache-dir -r /dev/stdin \
     && rm "/home/pttruser/app/Pipfile.lock"
 
 # Install the ArchiveBox repository and pip requirements
