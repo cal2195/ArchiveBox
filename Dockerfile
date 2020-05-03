@@ -8,7 +8,7 @@
 # Documentation:
 #     https://github.com/pirate/ArchiveBox/wiki/Docker#docker
 
-FROM node:13-slim
+FROM node:latest
 LABEL maintainer="Nick Sweeting <archivebox-git@sweeting.me>"
 
 RUN apt-get update \
