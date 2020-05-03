@@ -11,6 +11,9 @@
 FROM ubuntu:latest
 LABEL maintainer="Nick Sweeting <archivebox-git@sweeting.me>"
 
+ENV DEBIAN_FRONTEND noninteractive 
+ENV DEBCONF_NONINTERACTIVE_SEEN true
+
 RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
         jq git zlib1g-dev wget curl gnupg2 libgconf-2-4 python3 python3-pip \
