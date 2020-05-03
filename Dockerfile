@@ -45,14 +45,12 @@ RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
 
 WORKDIR /home/pptruser/app
 
-RUN python3 -m pip install --upgrade pip setuptools youtube-dl && python3 -m pip install virtualenv \
-    && python3 -m virtualenv ".docker-venv"
-ENV PATH="/home/pttruser/app/.docker-venv/bin:${PATH}"
+RUN python3 -m pip install --upgrade pip setuptools youtube-dl
 COPY ./Pipfile.lock "/home/pttruser/app/Pipfile.lock"
 RUN jq -r \
         '.default,.develop | to_entries[] | .key + .value.version' \
         "/home/pttruser/app/Pipfile.lock" \
-    | /home/pttruser/app/.docker-venv/bin/python3 -m pip install --no-cache-dir -r /dev/stdin \
+    | python3 -m pip install --no-cache-dir -r /dev/stdin \
     && rm "/home/pttruser/app/Pipfile.lock"
 
 # Install the ArchiveBox repository and pip requirements
