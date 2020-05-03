@@ -15,8 +15,10 @@ LABEL maintainer="Nick Sweeting <archivebox-git@sweeting.me>"
 
 RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
-        git wget curl youtube-dl gnupg2 libgconf-2-4 python3 python3-pip \
+        git wget curl gnupg2 libgconf-2-4 python3 python3-pip \
     && rm -rf /var/lib/apt/lists/*
+    
+RUN wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/bin/youtube-dl && chmod a+rx /usr/bin/youtube-dl
 
 # Install latest chrome package and fonts to support major charsets (Chinese, Japanese, Arabic, Hebrew, Thai and a few others)
 RUN apt-get update && apt-get install -y wget --no-install-recommends \
