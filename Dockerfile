@@ -8,7 +8,7 @@
 # Documentation:
 #     https://github.com/pirate/ArchiveBox/wiki/Docker#docker
 
-FROM python:3
+FROM ubuntu:latest
 LABEL maintainer="Nick Sweeting <archivebox-git@sweeting.me>"
 
 RUN apt-get update \
